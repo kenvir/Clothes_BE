@@ -1,0 +1,30 @@
+{
+  "name": "clothes_be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenvir/Clothes_BE.git"
+  },
+  "keywords": [
+    "clothes",
+    "be"
+  ],
+  "author": "VietNguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenvir/Clothes_BE/issues"
+  },
+  "homepage": "https://github.com/kenvir/Clothes_BE#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
