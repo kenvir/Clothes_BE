@@ -1,0 +1,91 @@
+<form name="container-form" method="POST" action="/blogs/handle-form-actions" class="mt-4">
+  <h3 class="text-center">MY BLOG</h3>
+  <div class="d-flex align-item-center justify-content-between">
+    <a href="/blogs/create" class="mx-4 text-decoration-none text-white bg-primary p-2 rounded">
+      <span class="oi oi-pencil"></span>
+      Add blog
+    </a>
+    {{!--
+    <a href="/me/trash/blogs" class="text-decoration-none text-white bg-danger p-2 rounded">
+      <span class="oi oi-trash"></span>
+      Trash ({{deletedCount}})
+    </a>
+    --}}
+  </div>
+
+  {{!--
+  <div class="mt-4 d-flex align-items-center">
+    <select class="form-select form-select-sm checkbox-select-all-options" name="action" required>
+      <option value="">-- Select Action --</option>
+      <option value="delete">Delete</option>
+    </select>
+
+    <button class="btn btn-primary btn-sm check-all-submit-btn disabled">Submit</button>
+  </div>
+  --}}
+
+  <table class="table mt-4 table-bordered">
+    <thead>
+      <tr>
+        {{!--
+        <th scope="col">
+          <input class="form-check-input" type="checkbox" value="" id="checkbox-all" />
+        </th>
+
+        <th scope="col">ID {{{sortable '_id' _sort}}}</th>
+        <th scope="col">Blog title {{{sortable 'title' _sort}}}</th>
+        <th scope="col">Description {{{sortable 'description' _sort}}}</th>
+        <th scope="col">Created At {{{sortable 'createdAt' _sort}}}</th>
+        <th scope="col">Actions</th>
+        --}}
+
+        <th scope="col">ID</th>
+        <th scope="col">Blog title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each blogs}}
+      <tr>
+        {{!--
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="blogIds[]" value="{{this._id}}" id="" />
+          </div>
+        </td>
+        --}}
+        <th scope="row">{{sum @index 1}}</th>
+        <td>{{this.title}}</td>
+        <td>{{this.description}}</td>
+        <td>{{this.createdAt}}</td>
+
+        <td class="action-button">
+          <a
+            href="/blogs/{{this._id}}/edit"
+            class="btn btn-link text-decoration-none text-white bg-warning bg-opacity-50 btn-edit"
+            >Edit</a
+          >
+          <a
+            href=""
+            class="btn btn-link text-decoration-none text-white bg-danger btn-delete"
+            data-bs-toggle="modal"
+            data-id="{{this._id}}"
+            data-bs-target="#delete-course-modal"
+            >Delete</a
+          >
+        </td>
+      </tr>
+      {{else}}
+      <tr>
+        <td colspan="5">
+          Ban chua dang blog nao.
+          <a href="/blogs/create">Dang blog.</a>
+        </td>
+      </tr>
+
+      {{/each}}
+    </tbody>
+  </table>
+</form>

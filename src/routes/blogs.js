@@ -1,9 +1,13 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 
-const blogsController = require("../app/controllers/BlogsController");
+const blogsController = require('../app/controllers/BlogsController');
 
-router.use("/:slug", blogsController.show);
-router.use("/", blogsController.index);
+router.get('/create', blogsController.create);
+router.post('/store', blogsController.store);
+router.get('/:id/edit', blogsController.edit);
+router.put('/:id', blogsController.update);
+router.get('/:slug', blogsController.show);
+// router.get('/', blogsController.index);
 
 module.exports = router;

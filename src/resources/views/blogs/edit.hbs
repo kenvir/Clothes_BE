@@ -1,0 +1,22 @@
+<div className="mt-4">
+  <h3>EDIT BLOG</h3>
+  <form method="POST" action="/blogs/{{blog._id}}?_method=PUT" class="mt-4">
+    <div class="form-group">
+      <label for="title" class="form-label font-weight-bold"> Blog Title </label>
+      <input type="text" class="form-control" value="{{blog.title}}" id="title" name="title" />
+    </div>
+    <div class="form-group">
+      <label for="description" class="form-label font-weight-bold"> Description </label>
+      <textarea class="form-control" id="description" name="description">{{blog.description}}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="image" class="form-label font-weight-bold"> Image </label>
+      <input type="text" class="form-control" value="{{blog.image}}" id="image" name="image" />
+    </div>
+    <div class="form-group">
+      <label for="author" class="form-label font-weight-bold"> Author </label>
+      <input type="text" class="form-control" value="{{blog.author}}" id="author" name="author" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">LUU LAI</button>
+  </form>
+</div>

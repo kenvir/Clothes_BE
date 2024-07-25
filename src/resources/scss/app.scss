@@ -1,3 +1,78 @@
+@import 'variable';
+
+h1 {
+  color: $red-color;
+}
+
 h2 {
   color: green;
+}
+
+.checkbox-select-all-options {
+  width: 180px;
+  margin: 0 16px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.learn {
+  background-color: aquamarine;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.card-course-item {
+  margin-bottom: 27px;
+  min-height: 350px;
+}
+
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.table {
+  /* --bs-table-bg: #cacaca;
+  border-color: black; */
+}
+
+th {
+  text-align: center;
+}
+
+th:first-child {
+  text-align: start;
+}
+
+th,
+td {
+  vertical-align: middle;
+}
+
+.action-button {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-edit:hover {
+  background-color: #ffc107 !important;
+}
+
+.btn-delete:hover {
+  background-color: #ff0018 !important;
 }
