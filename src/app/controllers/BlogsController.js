@@ -46,7 +46,7 @@ class BlogsController {
     const blog = new Blog(req.body);
     blog
       .save()
-      .then(() => res.redirect('/blogs'))
+      .then(() => res.redirect('/me/stored/blogs'))
       .catch(next);
 
     // res.send('NEW BLOG!');
@@ -70,6 +70,54 @@ class BlogsController {
       .lean()
       .then(() => res.redirect('/me/stored/blogs'))
       .catch(next);
+  }
+
+  // [DELETE] /blogs/:id
+  delete(req, res, next) {
+    Blog.delete({ _id: req.params.id })
+      .lean()
+      .then(() => res.redirect('back'))
+      .catch(next);
+  }
+
+  // [PATCH] /blogs/:id/restore
+  restore(req, res, next) {
+    Blog.restore({ _id: req.params.id })
+      .lean()
+      .then(() => res.redirect('back'))
+      .catch(next);
+  }
+
+  // [DELETE] /blogs/:id/force
+  forceDelete(req, res, next) {
+    Blog.deleteOne({ _id: req.params.id })
+      .lean()
+      .then(() => res.redirect('back'))
+      .catch(next);
+  }
+
+  // [POST] /blogs/handle-form-actions
+  handleFormActions(req, res, next) {
+    switch (req.body.action) {
+      case 'delete':
+        Blog.delete({ _id: { $in: req.body.blogIds } })
+          .then(() => res.redirect('back'))
+          .catch(next);
+
+        break;
+      case 'forceDelete':
+        Blog.deleteMany({ _id: { $in: req.body.blogIds } })
+          .then(() => res.redirect('back'))
+          .catch(next);
+        break;
+      case 'restore':
+        Blog.restore({ _id: { $in: req.body.blogIds } })
+          .then(() => res.redirect('back'))
+          .catch(next);
+        break;
+      default:
+        res.json({ message: 'Action is invalid!!!' });
+    }
   }
 }
 
