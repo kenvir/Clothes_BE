@@ -6,6 +6,8 @@ const app = express();
 const port = 3000;
 const hbs = require('express-handlebars');
 
+const SortMiddleware = require('./app/middlewares/sortMiddleware');
+
 const route = require('./routes');
 const db = require('./config/db');
 
@@ -20,9 +22,7 @@ app.engine(
   'hbs',
   hbs.engine({
     extname: '.hbs',
-    helpers: {
-      sum: (a, b) => a + b,
-    },
+    helpers: require('./helper/handlebars'),
   }),
 );
 app.set('view engine', 'hbs');
@@ -31,6 +31,9 @@ app.set('views', path.join(__dirname, 'resources/views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(methodOverride('_method'));
+
+// Custom middleware
+app.use(SortMiddleware);
 
 // HTTP Logger
 // app.use(morgan('combined'));
