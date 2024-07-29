@@ -40,16 +40,11 @@ class BlogsController {
 
   // [POST] /blogs/store
   store(req, res, next) {
-    // res.json(req.body);
-    // req.body.image = `https://i.ytimg.com/vi/${req.body.image}/maxresdefault.jpg`;
-
     const blog = new Blog(req.body);
     blog
       .save()
       .then(() => res.redirect('/me/stored/blogs'))
       .catch(next);
-
-    // res.send('NEW BLOG!');
   }
 
   // [GET] /blogs/:id/edit

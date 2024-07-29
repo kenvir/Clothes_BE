@@ -13,6 +13,6 @@ router.delete('/:id/force', blogsController.forceDelete);
 router.get('/:slug', blogsController.show);
 router.post('/handle-form-actions', blogsController.handleFormActions);
 
-// router.get('/', blogsController.index);
+router.get('/', blogsController.index);
 
 module.exports = router;

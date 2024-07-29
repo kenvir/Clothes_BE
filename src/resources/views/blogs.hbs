@@ -1,7 +1,7 @@
 <div class="mt-4">
   <div class="row">
     {{#each blogs}}
-    <div class="col-sm-6 col-lg-4">
+    <div class="col-sm-6 col-lg-4 mt-4">
       <div class="card card-blog-item">
         <a href="/blogs/{{this.slug}}">
           <img src="{{this.image}}" class="card-img-top" alt="..." />
@@ -11,7 +11,7 @@
             <h5 class="card-title">{{this.name}}</h5>
           </a>
           <p class="card-text">{{this.description}}</p>
-          <a href="#" class="btn btn-primary">See blog</a>
+          <a href="#" class="btn btn-primary">Read blog</a>
         </div>
       </div>
     </div>

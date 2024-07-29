@@ -127,13 +127,25 @@
     checkboxAll.change(function () {
       var isCheckAll = $(this).prop('checked');
       blogItemCheckbox.prop('checked', isCheckAll);
+      renderCheckAllSubmitBtn();
     });
 
     // Blog item checkbox change
     blogItemCheckbox.change(function () {
       var isCheckAll = blogItemCheckbox.length === $('input[name="blogIds[]"]:checked').length;
       checkboxAll.prop('checked', isCheckAll);
+      renderCheckAllSubmitBtn();
     });
+
+    // Re-render check all submit btn
+    function renderCheckAllSubmitBtn() {
+      var checkedCount = $('input[name="blogIds[]"]:checked').length;
+      if (checkedCount) {
+        checkAllSubmitBtn.removeClass('disabled');
+      } else {
+        checkAllSubmitBtn.addClass('disabled');
+      }
+    }
 
     
   });
