@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 const hbs = require('express-handlebars');
 
-const SortMiddleware = require('./app/middlewares/sortMiddleware');
+const SortMiddleware = require('./app/middlewares/sortMiddleware.x');
 
 const route = require('./routes');
 const db = require('./config/db');
