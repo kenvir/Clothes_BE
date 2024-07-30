@@ -30,9 +30,24 @@ class ProductsController {
   // [POST] /products/store
   store(req, res, next) {
     const product = new Product(req.body);
-
     product
       .save()
+      .then(() => res.redirect('/me/stored/products'))
+      .catch(next);
+  }
+
+  // [GET] /products/:id/edit
+  edit(req, res, next) {
+    Product.findById(req.params.id)
+      .lean()
+      .then((product) => res.render('products/edit', { product }))
+      .catch(next);
+  }
+
+  // [PUT] /products/:id
+  update(req, res, next) {
+    Product.updateOne({ _id: req.params.id }, req.body)
+      .lean()
       .then(() => res.redirect('/me/stored/products'))
       .catch(next);
   }
