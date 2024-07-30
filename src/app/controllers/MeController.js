@@ -1,4 +1,5 @@
 const Blog = require('../models/Blogs');
+const Product = require('../models/Products');
 const { multipleMongooseToObject } = require('../../util/mongoose');
 
 class MeController {
@@ -32,6 +33,14 @@ class MeController {
       .then((blogs) => {
         res.render('me/trash-blogs', { blogs: multipleMongooseToObject(blogs) });
       })
+      .catch(next);
+  }
+
+  // [GET] me/stored/products
+  storedProducts(req, res, next) {
+    Product.find({})
+      .lean()
+      .then((products) => res.render('me/stored-products', { products }))
       .catch(next);
   }
 }

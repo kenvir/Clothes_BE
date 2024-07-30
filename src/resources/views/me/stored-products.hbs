@@ -1,0 +1,89 @@
+<form name="container-form" method="POST" action="/products/handle-form-actions" class="mt-4">
+  <h3 class="text-center">MY PRODUCTS</h3>
+  <div class="d-flex align-item-center justify-content-between">
+    <a href="/products/create" class="mx-4 text-decoration-none text-white bg-primary p-2 rounded">
+      <span class="oi oi-pencil"></span>
+      Add product
+    </a>
+
+    {{!--
+    <a href="/me/trash/products" class="text-decoration-none text-white bg-danger p-2 rounded">
+      <span class="oi oi-trash"></span>
+      Trash ({{deletedCount}})
+    </a>
+    --}}
+  </div>
+
+  <div class="mt-4 d-flex align-items-center">
+    <select class="form-select form-select-sm checkbox-select-all-options" name="action" required>
+      <option value="">-- Select Action --</option>
+      <option value="delete">Delete</option>
+    </select>
+
+    <button class="btn btn-primary btn-sm check-all-submit-btn disabled">Submit</button>
+  </div>
+
+  <table class="table mt-4 table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">
+          <input class="form-check-input" type="checkbox" value="" id="checkbox-all" />
+        </th>
+
+        {{!--
+        <th scope="col">ID {{{sortable '_id' _sort}}}</th>
+        <th scope="col">product title {{{sortable 'title' _sort}}}</th>
+        <th scope="col">Description {{{sortable 'description' _sort}}}</th>
+        <th scope="col">Created At {{{sortable 'createdAt' _sort}}}</th>
+        <th scope="col">Actions</th>
+      </tr>
+      --}}
+
+      <th scope="col">ID</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Actions</th>
+    </thead>
+    <tbody>
+      {{#each products}}
+      <tr>
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="productIds[]" value="{{this._id}}" id="" />
+          </div>
+        </td>
+
+        <th scope="row">{{this._id}}</th>
+        <td>{{this.name}}</td>
+        <td>{{this.description}}</td>
+        <td>{{this.createdAt}}</td>
+
+        <td class="action-button">
+          <a
+            href="/products/{{this._id}}/edit"
+            class="btn btn-link text-decoration-none text-white bg-warning bg-opacity-50 btn-edit"
+            >Edit</a
+          >
+          <a
+            href=""
+            class="btn btn-link text-decoration-none text-white bg-danger btn-delete"
+            data-bs-toggle="modal"
+            data-id="{{this._id}}"
+            data-bs-target="#delete-product-modal"
+            >Delete</a
+          >
+        </td>
+      </tr>
+      {{else}}
+      <tr>
+        <td colspan="5">
+          You don't have any product.
+          <a href="/products/create">Write product.</a>
+        </td>
+      </tr>
+
+      {{/each}}
+    </tbody>
+  </table>
+</form>

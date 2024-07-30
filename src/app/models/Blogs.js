@@ -36,6 +36,11 @@ Blog.query.sortable = function (req) {
   return this;
 };
 
+// Add field _id auto desc in first schema
+// Blog.plugin(AutoIncrement, { id: 'blog_counter', inc_field: '_id' });
+
+// const BlogModel = mongoose.model('BlogModel', Blog);
+
 // Add plugin
 mongoose.plugin(slug);
 

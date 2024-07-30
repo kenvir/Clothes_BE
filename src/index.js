@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const methodOverride = require('method-override');
 const app = express();
 const port = 3000;
