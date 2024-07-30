@@ -20,6 +20,7 @@ const Product = new Schema(
     tags: { type: Array },
     image: { type: Array },
     date: { type: Date },
+    slug: { type: String, slug: 'name', unique: true },
   },
   {
     // _id: false,

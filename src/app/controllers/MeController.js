@@ -3,6 +3,7 @@ const Product = require('../models/Products');
 const { multipleMongooseToObject } = require('../../util/mongoose');
 
 class MeController {
+  ///////////////// BLOGS //////////////////////
   // [GET] /me/stored/blogs
   storedBlogs(req, res, next) {
     Promise.all([Blog.find({}).lean().sortable(req), Blog.countDocumentsWithDeleted({ deleted: true }).lean()])
@@ -36,11 +37,22 @@ class MeController {
       .catch(next);
   }
 
+  ///////////////// PRODUCTS //////////////////////
+
   // [GET] me/stored/products
   storedProducts(req, res, next) {
     Product.find({})
       .lean()
       .then((products) => res.render('me/stored-products', { products }))
+      .catch(next);
+  }
+
+  // [GET] /me/trash/products
+  trashProducts(req, res, next) {
+    Product.findWithDeleted({ deleted: true })
+      .then((products) => {
+        res.render('me/trash-products', { products: multipleMongooseToObject(products) });
+      })
       .catch(next);
   }
 }

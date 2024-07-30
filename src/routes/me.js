@@ -7,5 +7,6 @@ router.get('/stored/blogs', meController.storedBlogs);
 router.get('/trash/blogs', meController.trashBlogs);
 
 router.get('/stored/products', meController.storedProducts);
+router.get('/trash/products', meController.trashBlogs);
 
 module.exports = router;
