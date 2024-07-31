@@ -1,0 +1,84 @@
+<form name="container-form" method="POST" action="/products/handle-form-actions" class="mt-4">
+  <a href="/me/stored/products" class="text-decoration-none text-white bg-info p-2 rounded">
+    <span class="oi oi-list"></span>
+    Products List
+  </a>
+  <h3 class="text-center">Product Deleted</h3>
+
+  <div class="mt-4 d-flex align-items-center">
+    <select class="form-select form-select-sm checkbox-select-all-options" name="action" required>
+      <option value="">-- Select Option --</option>
+      <option value="restore">Restore all</option>
+      <option value="forceDelete">Delete all</option>
+    </select>
+    <button class="btn btn-primary btn-sm check-all-submit-btn disabled">Submit</button>
+  </div>
+
+  <table class="table mt-4 table-bordered rounded-4">
+    <thead>
+      <tr>
+        <th scope="col">
+          <input class="form-check-input" type="checkbox" value="" id="checkbox-all" />
+        </th>
+        <th scope="col">ID</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Deleted At</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each products}}
+
+      <tr>
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="productIds[]" value="{{this._id}}" id="" />
+          </div>
+        </td>
+        <th scope="row">{{sum @index 1}}</th>
+        <td>{{this.name}}</td>
+        <td>{{this.description}}</td>
+        <td>{{this.deletedAt}}</td>
+        <td>
+          <a href="" class="btn btn-link btn-restore text-decoration-none text-white bg-success" data-id="{{this._id}}"
+            >Restore</a
+          >
+          <a
+            href=""
+            class="btn btn-link text-decoration-none text-white bg-danger"
+            data-bs-toggle="modal"
+            data-id="{{this._id}}"
+            data-bs-target="#delete-product-modal"
+            >Delete</a
+          >
+        </td>
+      </tr>
+      {{else}}
+      <tr>
+        <td colspan="6">Trash is empty.</td>
+      </tr>
+
+      {{/each}}
+    </tbody>
+  </table>
+</form>
+
+<form name="restore-product-form" method="POST"></form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var productId;
+    var restoreForm = document.forms['restore-product-form'];
+    var btnRestore = $('.btn-restore');
+
+    // When restore btn clicked
+    btnRestore.click(function (e) {
+      e.preventDefault();
+
+      var productId = $(this).data('id');
+      restoreForm.action = '/products/' + productId + '/restore?_method=PATCH';
+      restoreForm.submit();
+    });
+  });
+</script>
