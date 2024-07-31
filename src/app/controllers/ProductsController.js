@@ -75,6 +75,30 @@ class ProductsController {
       .then(() => res.redirect('back'))
       .catch(next);
   }
+
+  // [POST] /products/handle-form-actions
+  handleFormActions(req, res, next) {
+    switch (req.body.action) {
+      case 'delete':
+        Product.delete({ _id: { $in: req.body.productIds } })
+          .then(() => res.redirect('back'))
+          .catch(next);
+
+        break;
+      case 'forceDelete':
+        Product.deleteMany({ _id: { $in: req.body.productIds } })
+          .then(() => res.redirect('back'))
+          .catch(next);
+        break;
+      case 'restore':
+        Product.restore({ _id: { $in: req.body.productIds } })
+          .then(() => res.redirect('back'))
+          .catch(next);
+        break;
+      default:
+        res.json({ message: 'Action is invalid!!!' });
+    }
+  }
 }
 
 module.exports = new ProductsController();

@@ -41,9 +41,18 @@ class MeController {
 
   // [GET] me/stored/products
   storedProducts(req, res, next) {
-    Product.find({})
-      .lean()
-      .then((products) => res.render('me/stored-products', { products }))
+    // Product.find({})
+    //   .lean()
+    //   .then((products) => res.render('me/stored-products', { products }))
+    //   .catch(next);
+
+    Promise.all([Product.find({}).lean().sortable(req), Product.countDocumentsWithDeleted({ deleted: true }).lean()])
+      .then(([products, deletedCount]) =>
+        res.render('me/stored-products', {
+          deletedCount,
+          products,
+        }),
+      )
       .catch(next);
   }
 
