@@ -3,13 +3,13 @@
     <span class="oi oi-list"></span>
     Products List
   </a>
-  <h3 class="text-center">Product Deleted</h3>
+  <h3 class="text-center">Trash Product</h3>
 
   <div class="mt-4 d-flex align-items-center">
     <select class="form-select form-select-sm checkbox-select-all-options" name="action" required>
       <option value="">-- Select Option --</option>
       <option value="restore">Restore all</option>
-      <option value="forceDelete">Delete all</option>
+      <option value="forceProduct">Delete all</option>
     </select>
     <button class="btn btn-primary btn-sm check-all-submit-btn disabled">Submit</button>
   </div>
@@ -23,7 +23,7 @@
         <th scope="col">ID</th>
         <th scope="col">Product Name</th>
         <th scope="col">Description</th>
-        <th scope="col">Deleted At</th>
+        <th scope="col">Created At</th>
         <th scope="col">Actions</th>
       </tr>
     </thead>
@@ -39,7 +39,7 @@
         <th scope="row">{{sum @index 1}}</th>
         <td>{{this.name}}</td>
         <td>{{this.description}}</td>
-        <td>{{this.deletedAt}}</td>
+        <td>{{this.createdAt}}</td>
         <td>
           <a href="" class="btn btn-link btn-restore text-decoration-none text-white bg-success" data-id="{{this._id}}"
             >Restore</a
@@ -64,13 +64,36 @@
   </table>
 </form>
 
+{{! Confirm product blog }}
+
+<div id="delete-product-modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Permanently product the blog</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>This action can not undone. Do you want to delete the product permanently?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn-delete-product" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name="delete-product-form" method="POST"></form>
 <form name="restore-product-form" method="POST"></form>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var productId;
     var restoreForm = document.forms['restore-product-form'];
+    var deleteForm = document.forms['delete-product-form'];
     var btnRestore = $('.btn-restore');
+    var btnDelete = document.getElementById('btn-delete-product');
 
     // When restore btn clicked
     btnRestore.click(function (e) {
@@ -80,5 +103,20 @@
       restoreForm.action = '/products/' + productId + '/restore?_method=PATCH';
       restoreForm.submit();
     });
+
+    // When dialog confirm clicked
+    const exampleModal = document.getElementById('delete-product-modal');
+    if (exampleModal) {
+      exampleModal.addEventListener('show.bs.modal', (event) => {
+        const button = event.relatedTarget;
+        productId = button.getAttribute('data-id');
+      });
+    }
+
+    // When delete product btn clicked
+    btnDelete.onclick = function () {
+      deleteForm.action = '/products/' + productId + '/force?_method=DELETE';
+      deleteForm.submit();
+    };
   });
 </script>

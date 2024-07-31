@@ -67,6 +67,14 @@ class ProductsController {
       .then(() => res.redirect('back'))
       .catch(next);
   }
+
+  // [DELETE] /products/:id/force
+  forceDelete(req, res, next) {
+    Product.deleteOne({ _id: req.params.id })
+      .lean()
+      .then(() => res.redirect('back'))
+      .catch(next);
+  }
 }
 
 module.exports = new ProductsController();
