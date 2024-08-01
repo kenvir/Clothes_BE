@@ -94,6 +94,9 @@
     var deleteForm = document.forms['delete-product-form'];
     var btnRestore = $('.btn-restore');
     var btnDelete = document.getElementById('btn-delete-product');
+    var checkboxAll = $('#checkbox-all');
+    var productItemCheckbox = $('input[name="productIds[]"]');
+    var checkAllSubmitBtn = $('.check-all-submit-btn');
 
     // When restore btn clicked
     btnRestore.click(function (e) {
@@ -118,5 +121,37 @@
       deleteForm.action = '/products/' + productId + '/force?_method=DELETE';
       deleteForm.submit();
     };
+
+    // When checkbox All checked
+    checkboxAll.change(function () {
+      var isCheckAll = $(this).prop('checked');
+      productItemCheckbox.prop('checked', isCheckAll);
+      renderCheckAllSubmitBtn();
+    });
+
+    // When product item checkbox change
+    productItemCheckbox.change(function () {
+      var isCheckAll = productItemCheckbox.length === $('input[name="productIds[]"]:checked').length;
+      checkboxAll.prop('checked', isCheckAll);
+      renderCheckAllSubmitBtn();
+    });
+
+    // Check all submit button submit
+    checkAllSubmitBtn.on('submit', function (e) {
+      var isSubmitTable = !$(this).hasClass('disabled');
+      if (!isSubmitTable) {
+        e.preventDefault();
+      }
+    });
+
+    // Re-render check all submit button
+    function renderCheckAllSubmitBtn() {
+      var checkedCount = $('input[name="productIds[]"]:checked').length;
+      if (checkedCount) {
+        checkAllSubmitBtn.removeClass('disabled');
+      } else {
+        checkAllSubmitBtn.addClass('disabled');
+      }
+    }
   });
 </script>
