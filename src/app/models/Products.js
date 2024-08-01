@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 
 const Product = new Schema(
   {
-    // _id: { type: Number },
+    _id: { type: Number },
     name: { type: String },
     description: { type: String },
     type: { type: String },
@@ -23,15 +23,10 @@ const Product = new Schema(
     slug: { type: String, slug: 'name', unique: true },
   },
   {
-    // _id: false,
+    _id: false,
     timestamps: true,
   },
 );
-
-// Add field _id auto desc in first schema
-// Product.plugin(AutoIncrement, { id: 'product_counter', inc_field: '_id' });
-
-// const ProductModel = mongoose.model('ProductModel', Product);
 
 // Add custom query helpers
 Product.query.sortable = function (req) {
@@ -44,6 +39,9 @@ Product.query.sortable = function (req) {
 
   return this;
 };
+
+// Add field _id auto desc in first schema
+Product.plugin(AutoIncrement, { id: 'product_counter', inc_field: '_id' });
 
 // Add plugin
 mongoose.plugin(slug);
