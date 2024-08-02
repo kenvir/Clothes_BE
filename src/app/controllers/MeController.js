@@ -31,6 +31,7 @@ class MeController {
   // [GET] /me/trash/blogs
   trashBlogs(req, res, next) {
     Blog.findWithDeleted({ deleted: true })
+      .sortable(req)
       .then((blogs) => {
         res.render('me/trash-blogs', { blogs: multipleMongooseToObject(blogs) });
       })
@@ -59,6 +60,7 @@ class MeController {
   // [GET] /me/trash/products
   trashProducts(req, res, next) {
     Product.findWithDeleted({ deleted: true })
+      .sortable(req)
       .then((products) => {
         res.render('me/trash-products', { products: multipleMongooseToObject(products) });
       })
