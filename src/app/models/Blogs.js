@@ -15,7 +15,6 @@ const Blog = new Schema(
     author: { type: String, require: true },
     quote: { type: String },
     tags: { type: Array },
-    date: { type: Date },
     slug: { type: String, slug: 'title', unique: true },
   },
   {
