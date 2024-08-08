@@ -25,10 +25,61 @@
       <label for="quote" class="form-label fw-medium"> Quote </label>
       <input type="text" class="form-control" id="quote" name="quote" />
     </div>
+
     <div class="form-group">
       <label for="tags" class="form-label fw-medium"> Tags </label>
-      <input type="text" class="form-control" id="tags" name="tags" />
+      <div id="dropdown" class="dropdown-container">
+        <div class="dropdown-options">
+          <label><input type="checkbox" id="select-all" /> Select all</label>
+          <label><input type="checkbox" class="option" value="Clothes" /> Clothes</label>
+          <label><input type="checkbox" class="option" value="Shoes" /> Shoes</label>
+          <label><input type="checkbox" class="option" value="Accessory" /> Accessory</label>
+          <label><input type="checkbox" class="option" value="Hat" /> Hat</label>
+        </div>
+      </div>
     </div>
+
     <button type="submit" class="btn btn-primary mt-4">CREATE BLOG</button>
   </form>
 </div>
+
+<script>
+  const dropdown = document.getElementById('dropdown');
+  const selectAllCheckbox = document.getElementById('select-all');
+  const optionCheckboxes = document.querySelectorAll('.option');
+
+  let selectedOptions = [];
+
+  dropdown.addEventListener('click', function () {
+    dropdown.classList.toggle('active');
+  });
+
+  selectAllCheckbox.addEventListener('change', function () {
+    optionCheckboxes.forEach((option) => {
+      option.checked = selectAllCheckbox.checked;
+    });
+    updateSelectedOptions();
+  });
+
+  optionCheckboxes.forEach((option) => {
+    option.addEventListener('change', function () {
+      updateSelectedOptions();
+    });
+  });
+
+  function updateSelectedOptions() {
+    selectedOptions = Array.from(optionCheckboxes)
+      .filter((option) => option.checked)
+      .map((option) => option.value);
+
+    const label = selectedOptions.length ? selectedOptions.join(', ') : 'Select tags';
+    dropdown.querySelector('.dropdown-label').textContent = label;
+
+    // Update "Select all" checkbox based on individual selections
+    if (selectedOptions.length === optionCheckboxes.length) {
+      selectAllCheckbox.checked = true;
+    } else {
+      selectAllCheckbox.checked = false;
+    }
+  }
+</script>
